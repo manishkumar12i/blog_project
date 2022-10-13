@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+{% load  static %}
+{% block content%}
+
+<div class="col-sm-10">
+    <h3>Home Page</h3>
+    <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <br>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4 font-weight-bold">This is blog title.</h1>
+            <p class="lead">This is blog description</p>
+        </div>
+    </div>
+</div>
+{% endblock content%}

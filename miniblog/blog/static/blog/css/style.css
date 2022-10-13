@@ -1,0 +1,9 @@
+.body{
+    background-color: green;
+    color: blue;
+}
+
+.form-control,
+.form-control:focus{
+    background-color: oldlace;
+}
