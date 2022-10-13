@@ -1,14 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from blog.forms import SignUpForm, LoginForm,PostForm
+from blog.forms import SignUpForm, LoginForm, PostForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from blog.models import Post
+from django.core.paginator import Paginator
 
 
 def home(request):
     posts = Post.objects.all().order_by('id')
-    return render(request, 'blog/home.html',{'posts':posts})
+    return render(request, 'blog/home.html', {'posts': posts})
 
 
 def about(request):
@@ -20,7 +21,7 @@ def contact(request):
 
 
 def user_login(request):
-    if  not request.user.is_authenticated:
+    if not request.user.is_authenticated:
         if request.method == "POST":
             form = LoginForm(request=request, data=request.POST)
             if form.is_valid():
@@ -37,9 +38,10 @@ def user_login(request):
     else:
         return HttpResponseRedirect('/dashboard/')
 
+
 def user_logout(request):
     logout(request)
-    messages.success(request,'Logout Successfully:)')
+    messages.success(request, 'Logout Successfully:)')
     return HttpResponseRedirect('/')
 
 
@@ -61,12 +63,21 @@ def user_signup(request):
 def dashboard(request):
     if request.user.is_authenticated:
         posts = Post.objects.all()
-        return render(request, 'blog/dashboard.html',{'posts':posts})
+        paginator = Paginator(posts,5)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        user = request.user
+        full_name = user.get_full_name()
+        email = user.email
+        gps = user.groups.all()
+        return render(request, 'blog/dashboard.html', {'posts': page_obj,'full_name':full_name,'groups':gps,'email':email,'page_obj':page_obj})
     else:
         return HttpResponseRedirect('/login/')
 
 # for add posts
-def Addpost(request):
+
+
+def add_post(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             form = PostForm(request.POST)
@@ -75,32 +86,37 @@ def Addpost(request):
                 description = form.cleaned_data['description']
                 pst = Post(title=title, description=description)
                 pst.save()
-                messages.success(request,'Post Addded Successfully:)')
                 form = PostForm()
+            else:
+                print('Form is not valid...')
         else:
             form = PostForm()
-        return render(request, 'blog/addpost.html',{'form':form})
-        
+        return render(request, 'blog/addpost.html', {'form': form})
+
     else:
         return HttpResponseRedirect('/login/')
 
 # for update posts
-def Updatepost(request,id):
+
+
+def update_post(request, id):
     if request.user.is_authenticated:
         if request.method == "POST":
             pi = Post.objects.get(pk=id)
-            form = PostForm(request.POST,request.FILES, instance=pi)
+            form = PostForm(request.POST, request.FILES, instance=pi)
             if form.is_valid():
                 form.save()
         else:
             pi = Post.objects.get(pk=id)
             form = PostForm(instance=pi)
-        return render(request,'blog/updatepost.html',{'form':form})
+        return render(request, 'blog/updatepost.html', {'form': form})
     else:
         return HttpResponseRedirect('/login/')
 
-# for delete post 
-def Delete_post(request,id):
+# for delete post
+
+
+def delete_post(request, id):
     if request.user.is_authenticated:
         if request.method == "POST":
             pi = Post.objects.get(pk=id)

@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from blog import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home,name="home"),
@@ -26,7 +27,7 @@ urlpatterns = [
     path('signup/',views.user_signup,name="signup"),
     path('dashboard/',views.dashboard,name="dashboard"),
     path('logout/',views.user_logout,name="logout"),
-    path('add_post/',views.Addpost,name="add_post"),
-    path('update_post/<int:id>/',views.Updatepost,name="update_post"),
-    path('delete/<int:id>/',views.Delete_post, name="delete"),
+    path('add_post/',views.add_post,name="add_post"),
+    path('update_post/<int:id>/',views.update_post,name="update_post"),
+    path('delete/<int:id>/',views.delete_post, name="delete"),
 ]
