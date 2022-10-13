@@ -4,8 +4,54 @@
 
 <div class="col-sm-10">
     <h3 class="my-5">Dashboard Page</h3>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti ipsum natus ad, minus cum recusandae odit necessitatibus delectus facilis nulla dolorum doloribus quibusdam exercitationem perspiciatis rerum inventore molestiae temporibus asperiores..<p>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos quasi consequuntur tenetur numquam, ab repellat libero quaerat neque porro unde eos nam, cumque, aliquid non vitae deserunt corrupti impedit placeat.</p>
+    {% if messages %}
+    {% for message in messages%}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{message}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+    {% endif %}
+    <a href="{% url 'add_post'%}" class="btn btn-primary">Add Post</a>
+    <h4 class="text-center alert alert-primary my-5">Show Post Information</h4>
+    {% if posts %}
+    <table class="table table-hover ">
+      <thead>
+        <tr class="text-center">
+          <th scope="col" style="width:5%">ID</th>
+          <th scope="col" style="width:12%">Title</th>
+          <th scope="col" style="width:20%">Description</th>
+          <th scope="col" style="width:12%">Image</th>
+          <th scope="col" style="width:12%">Post Created Date</th>
+          <th scope="col" style="width:12%">Post Upated Date</th>
+          <th scope="col" style="width:20%">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <th scope="row">{{post.id}}</th>
+          <td>{{post.title}}</td>
+          <td>{{post.description}}</td>
+          <td>{{post.image}}</td>
+          <td>{{post.created_at}}</td>
+          <td>{{post.updated_at}}</td>
+          <td class="text-center">
+            <a href="{% url 'update_post' post.id %}" class="btn btn-warning btn-sm">EDIT</a>
+            <form action="{% url 'delete' post.id %}" method="post" class="d-inline">
+              {% csrf_token %}
+            <button class="btn btn-danger btn-sm">DELETE</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <h4 class="text-center alert alert-warning">No Data Found</h4>
+    {% endif %}
     </div>
 </div>
 {% endblock content%}
