@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from blog.models import Post
 from django.core.paginator import Paginator
+from django.contrib.auth.models import Group
 
 
 def home(request):
@@ -54,7 +55,10 @@ def user_signup(request):
             last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
             messages.success(request, 'Registered Successfully:)')
-            form.save()
+            user = form.save()
+            group = Group.objects.get(name="Author")
+            user.groups.add(group)
+
     else:
         form = SignUpForm()
     return render(request, 'blog/signup.html', {'form': form})
@@ -87,8 +91,6 @@ def add_post(request):
                 pst = Post(title=title, description=description)
                 pst.save()
                 form = PostForm()
-            else:
-                print('Form is not valid...')
         else:
             form = PostForm()
         return render(request, 'blog/addpost.html', {'form': form})

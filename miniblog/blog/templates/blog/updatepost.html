@@ -13,12 +13,12 @@
         </button>
         {% endfor %}
     {% endif %}
-    <form action="{%url 'dashboard'%}" method="post">
+    <form action="#" method="post" novalidate>
         {% csrf_token %}
         {{form.as_p}}
-        <button class="btn btn-success">Update</button>
-        <a href="{%url 'dashboard'%}" class="btn btn-danger">Cancel</a>
-    <div>
+        <input   type="submit"  value ="Update"  class="btn btn-success">
+        <a href="{% url 'dashboard'%}" class="btn btn-danger">Cancel</a>
+    </form>
         &nbsp;
     </div>
     </form>
