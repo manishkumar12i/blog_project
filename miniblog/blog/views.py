@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from blog.forms import SignUpForm, LoginForm, PostForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from blog.models import Post
+from blog.models import Post,AboutUs
 from django.core.paginator import Paginator
 from django.contrib.auth.models import Group
 
@@ -14,7 +14,14 @@ def home(request):
 
 
 def about(request):
-    return render(request, 'blog/about.html')
+    about_obj = AboutUs.objects.filter().first()
+    title = about_obj.title
+    desc = about_obj.description
+    context ={
+        'title':title,
+        'desc':desc
+    }
+    return render(request, 'blog/about.html',context)
 
 
 def contact(request):
@@ -131,3 +138,6 @@ def delete_post(request, id):
             return HttpResponseRedirect('/dashboard/')
     else:
         return HttpResponseRedirect('/login/')
+
+
+   
