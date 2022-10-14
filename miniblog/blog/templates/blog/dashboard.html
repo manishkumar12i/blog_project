@@ -1,18 +1,23 @@
 {% extends 'blog/base.html' %}
 {% load  static %}
 {% block side %}
-<div class="col-sm-10">
+<div class="col">
   <div class="col-sm-2 text-center">
-    <h4 class="my-5">Profile</h4>
+    <h4 class="my-5"><svg id="i-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <path d="M22 11 C22 16 19 20 16 20 13 20 10 16 10 11 10 6 12 3 16 3 20 3 22 6 22 11 Z M4 30 L28 30 C28 21 22 20 16 20 10 20 4 21 4 30 Z" />
+  </svg></h4>
     <h5>Name:{{full_name}}</h5>
     <h5>Email:{{email}}</h5>
     {% for group in groups %}
-    <p>Group name {{group.name}}</p>
+    <h5>Group:{{group.name}}</h5>
     {% endfor %}
   </div>
+
 {% endblock side %}
 {% block content%}
-    <h3 class="my-5">Dashboard Page</h3>
+    <h3 class="my-5"><svg id="i-clipboard" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <path d="M12 2 L12 6 20 6 20 2 12 2 Z M11 4 L6 4 6 30 26 30 26 4 21 4" />
+  </svg> Dashboard Page</h3>
     {% if messages %}
     {% for message in messages%}
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -23,7 +28,9 @@
       </div>
     {% endfor %}
     {% endif %}
-    <a href="{% url 'add_post'%}" class="btn btn-primary">Add Post</a>
+    <a href="{% url 'add_post'%}" class="btn btn-primary"><svg id="i-compose" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <path d="M27 15 L27 30 2 30 2 5 17 5 M30 6 L26 2 9 19 7 25 13 23 Z M22 6 L26 10 Z M9 19 L13 23 Z" />
+  </svg> Add Post</a>
     <h4 class="text-center alert alert-primary my-5">Show Post Information</h4>
     {% if posts %}
     <table class="table table-hover ">
@@ -45,15 +52,17 @@
           <th scope="row">{{post.id}}</th>
           <td>{{post.title}}</td>
           <td>{{post.description}}</td>
-           {% if post.image %}
+          {% if post.photo %}
           <td><img src="{{post.photo.url}}" alt="" height=50 width=50></img></td>
           {% else %}
-          <td><img src="/static/images/no_image_found.png" alt="" height=50 width=50></img></td>
+          <td><img src="" alt="" height=50 width=50></img></td>
           {% endif %}
           <td>{{post.created_at}}</td>
           <td>{{post.updated_at}}</td>
           <td class="text-center">
-            <a href="{% url 'update_post' post.id %}" class="btn btn-warning btn-sm">EDIT</a>
+            <a href="{% url 'update_post' post.id %}" class="btn btn-warning btn-sm"><svg id="i-edit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+              <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z" />
+          </svg></a>
             {% if  perms.blog.delete_post %}
             <form action="{% url 'delete' post.id %}" method="post" class="d-inline">
               {% csrf_token %}

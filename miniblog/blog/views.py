@@ -42,7 +42,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    messages.success(request, 'Logout Successfully:)')
+    messages.success(request, 'Logout Successfully:(')
     return HttpResponseRedirect('/')
 
 
@@ -84,13 +84,16 @@ def dashboard(request):
 def add_post(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            form = PostForm(request.POST)
+            form = PostForm(request.POST , request.FILES)
             if form.is_valid():
                 title = form.cleaned_data['title']
                 description = form.cleaned_data['description']
-                pst = Post(title=title, description=description)
+                photo = form.cleaned_data['photo']
+                pst = Post(title=title, description=description,photo=photo)
                 pst.save()
+                messages.success(request,'Post Added Successfully:)')
                 form = PostForm()
+                return HttpResponseRedirect('/dashboard/',{'form':form})
         else:
             form = PostForm()
         return render(request, 'blog/addpost.html', {'form': form})
@@ -107,10 +110,12 @@ def update_post(request, id):
             pi = Post.objects.get(pk=id)
             form = PostForm(request.POST, request.FILES, instance=pi)
             if form.is_valid():
+                messages.success(request,'Post Updated Successfully:)')
                 form.save()
+                return HttpResponseRedirect('/dashboard/')
         else:
             pi = Post.objects.get(pk=id)
-            form = PostForm(instance=pi)
+            form = PostForm(request.FILES,instance=pi)
         return render(request, 'blog/updatepost.html', {'form': form})
     else:
         return HttpResponseRedirect('/login/')

@@ -3,7 +3,12 @@
 {% block content%}
 
 <div class="col-sm-10">
-    <h3>Home Page</h3>
+    <h3>
+      <svg id="i-home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <path d="M12 20 L12 30 4 30 4 12 16 2 28 12 28 30 20 30 20 20 Z" />
+    </svg>
+    Home Page
+    </h3><br>
     {% if messages %}
     {% for message in messages%}
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -24,8 +29,11 @@
         <div class="container">
             <h1 class="display-4 font-weight-bold">{{post.title}}</h1>
             <p class="lead">{{post.description}}</p>
-          {% if post.image%}
-          <img src="{{post.image.url}}" alt="no image found">
+            <h4 ><svg id="i-calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+              <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9" />
+          </svg> Created On :{{post.created_at}}</h4>
+            {% if post.photo%}
+            <img src="{{post.photo.url}}" alt="no image found">
         </div>
     </div>
     {% endif %}

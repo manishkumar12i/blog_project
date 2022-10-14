@@ -23,6 +23,6 @@ class LoginForm(AuthenticationForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title','description','image']
-        labels = {'title':'Title','description':'Description','image':'Upload Image'}
+        fields = ['title','description','photo']
+        labels = {'title':'Title','description':'Description','photo':'Upload Image'}
         widgets = {'title':forms.TextInput(attrs={'class':'form-control'}),'description':forms.Textarea(attrs={'class':'form-control'})}
