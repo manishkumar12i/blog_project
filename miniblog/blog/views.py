@@ -141,3 +141,5 @@ def delete_post(request, id):
 
 
    
+def terms(request):
+    return render(request, 'blog/terms.html')
