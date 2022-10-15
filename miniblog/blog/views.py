@@ -122,7 +122,7 @@ def update_post(request, id):
                 return HttpResponseRedirect('/dashboard/')
         else:
             pi = Post.objects.get(pk=id)
-            form = PostForm(request.FILES,instance=pi)
+            form = PostForm(instance=pi)
         return render(request, 'blog/updatepost.html', {'form': form})
     else:
         return HttpResponseRedirect('/login/')
