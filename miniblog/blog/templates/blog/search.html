@@ -1,0 +1,20 @@
+{% extends 'blog/base.html'%}
+{% block content%}
+
+<center>
+  <center><h1>Search Result Found </h1></center>
+  <br>
+  {% if post %}
+  {% for i in post %}
+  <center>
+    <h2>
+        <a href="/{{i.slug}}">{{i.id}} {{i.title}}</a>
+    </h2>
+  </center>
+  {% endfor %}
+  {% else %}
+  <center>
+    <h1>No result found </h1>
+  </center>
+  {% endif %}
+{% endblock content%}

@@ -9,8 +9,8 @@ from django.contrib.auth.models import Group
 
 
 def home(request):
-    posts = Post.objects.all().order_by('id')
-    return render(request, 'blog/home.html', {'posts': posts})
+        posts = Post.objects.all().order_by('id')
+        return render(request, 'blog/home.html', {'posts': posts},)
 
 
 def about(request):
@@ -141,5 +141,14 @@ def delete_post(request, id):
 
 
    
+# for terms page
 def terms(request):
     return render(request, 'blog/terms.html')
+
+
+# for search in home 
+def search(request):
+    if request.method == "GET":
+        search = request.GET.get('search')
+        post = Post.objects.all().filter(title__contains=search)
+        return render(request, 'blog/search.html',{'post': post})

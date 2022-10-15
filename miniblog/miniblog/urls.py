@@ -29,6 +29,7 @@ urlpatterns = [
     path('logout/',views.user_logout,name="logout"),
     path('add_post/',views.add_post,name="add_post"),
     path('terms/',views.terms,name="terms"),
+    path('search/',views.search,name="search"),
     path('update_post/<int:id>/',views.update_post,name="update_post"),
     path('delete/<int:id>/',views.delete_post, name="delete"),
 ]
