@@ -1,8 +1,8 @@
 from django.db import models
 
 class Post(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField(max_length=200)
+    title = models.CharField(max_length=500)
+    description = models.TextField(max_length=500)
     photo = models.ImageField(upload_to='static/images/',blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -16,8 +16,8 @@ class Post(models.Model):
     
 
 class AboutUs(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField(max_length=200)
+    title = models.CharField(max_length=500)
+    description = models.TextField(max_length=500)
 
     class Meta:
         verbose_name = 'AboutUs'
