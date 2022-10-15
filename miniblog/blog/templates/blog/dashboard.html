@@ -58,9 +58,9 @@
           <td>{{post.title}}</td>
           <td>{{post.description}}</td>
           {% if post.photo %}
-          <td><img src="{{post.photo.url}}" alt="" height=50 width=50></img></td>
+          <td><img src="{{post.photo.url}}" alt="no image found" height=80 width=80></img></td>
           {% else %}
-          <td><img src="" alt="" height=50 width=50></img></td>
+          <td><img src="/static/images/image_not_found.png" alt="" height=80 width=80></img></td>
           {% endif %}
           <td>{{post.created_at}}</td>
           <td>{{post.updated_at}}</td>
