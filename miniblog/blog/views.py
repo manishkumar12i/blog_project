@@ -42,7 +42,7 @@ def user_login(request):
                     return HttpResponseRedirect('/dashboard/')
         else:
             form = LoginForm()
-        return render(request, '/home/manish/Desktop/blog_project/miniblog/blog/templates/blog/login .html', {'form': form})
+        return render(request, 'blog/login .html', {'form': form})
     else:
         return HttpResponseRedirect('/dashboard/')
 
