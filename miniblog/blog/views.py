@@ -1,20 +1,11 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from blog.forms import SignUpForm, LoginForm, PostForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from blog.models import Post, AboutUs
 from django.core.paginator import Paginator
 from django.contrib.auth.models import Group
-from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.models import User
-from django.template.loader import render_to_string
-from django.db.models.query_utils import Q
-from django.utils.http import urlsafe_base64_encode
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.encoding import force_bytes
-from django.core.mail import send_mail, BadHeaderError
-from django.conf import settings
 
 
 def home(request):
