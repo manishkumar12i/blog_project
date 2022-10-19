@@ -1,9 +1,9 @@
-from django.shortcuts import render , redirect
-from django.http import HttpResponseRedirect , HttpResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect, HttpResponse
 from blog.forms import SignUpForm, LoginForm, PostForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from blog.models import Post,AboutUs
+from blog.models import Post, AboutUs
 from django.core.paginator import Paginator
 from django.contrib.auth.models import Group
 from django.contrib.auth.forms import PasswordResetForm
@@ -14,22 +14,23 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.core.mail import send_mail, BadHeaderError
+from django.conf import settings
 
 
 def home(request):
-        posts = Post.objects.all().order_by('id')
-        return render(request, 'blog/home.html', {'posts': posts},)
+    posts = Post.objects.all().order_by('id')
+    return render(request, 'blog/home.html', {'posts': posts},)
 
 
 def about(request):
     about_obj = AboutUs.objects.filter().first()
     title = about_obj.title
     desc = about_obj.description
-    context ={
-        'title':title,
-        'desc':desc
+    context = {
+        'title': title,
+        'desc': desc
     }
-    return render(request, 'blog/about.html',context)
+    return render(request, 'blog/about.html', context)
 
 
 def contact(request):
@@ -82,14 +83,14 @@ def user_signup(request):
 def dashboard(request):
     if request.user.is_authenticated:
         posts = Post.objects.all()
-        paginator = Paginator(posts,5)
+        paginator = Paginator(posts, 5)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         user = request.user
         full_name = user.get_full_name()
         email = user.email
         gps = user.groups.all()
-        return render(request, 'blog/dashboard.html', {'posts': page_obj,'full_name':full_name,'groups':gps,'email':email,'page_obj':page_obj})
+        return render(request, 'blog/dashboard.html', {'posts': page_obj, 'full_name': full_name, 'groups': gps, 'email': email, 'page_obj': page_obj})
     else:
         return HttpResponseRedirect('/login/')
 
@@ -99,16 +100,16 @@ def dashboard(request):
 def add_post(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            form = PostForm(request.POST , request.FILES)
+            form = PostForm(request.POST, request.FILES)
             if form.is_valid():
                 title = form.cleaned_data['title']
                 description = form.cleaned_data['description']
                 photo = form.cleaned_data['photo']
-                pst = Post(title=title, description=description,photo=photo)
+                pst = Post(title=title, description=description, photo=photo)
                 pst.save()
-                messages.success(request,'Post Added Successfully:)')
+                messages.success(request, 'Post Added Successfully:)')
                 form = PostForm()
-                return HttpResponseRedirect('/dashboard/',{'form':form})
+                return HttpResponseRedirect('/dashboard/', {'form': form})
         else:
             form = PostForm()
         return render(request, 'blog/addpost.html', {'form': form})
@@ -125,7 +126,7 @@ def update_post(request, id):
             pi = Post.objects.get(pk=id)
             form = PostForm(request.POST, request.FILES, instance=pi)
             if form.is_valid():
-                messages.success(request,'Post Updated Successfully:)')
+                messages.success(request, 'Post Updated Successfully:)')
                 form.save()
                 return HttpResponseRedirect('/dashboard/')
         else:
@@ -148,44 +149,14 @@ def delete_post(request, id):
         return HttpResponseRedirect('/login/')
 
 
-   
 # for terms page
 def terms(request):
     return render(request, 'blog/terms.html')
 
 
-# for search in home 
+# for search in home
 def search(request):
     if request.method == "GET":
         search = request.GET.get('search')
         post = Post.objects.all().filter(title__contains=search)
-        return render(request, 'blog/search.html',{'post': post})
-
-# forget password 
-def password_reset_request(request):
-	if request.method == "POST":
-		password_reset_form = PasswordResetForm(request.POST)
-		if password_reset_form.is_valid():
-			data = password_reset_form.cleaned_data['email']
-			associated_users = User.objects.filter(Q(email=data))
-			if associated_users.exists():
-				for user in associated_users:
-					subject = "Password Reset Requested"
-					email_template_name = "main/password/password_reset_email.txt"
-					c = {
-					"email":user.email,
-					'domain':'127.0.0.1:8000',
-					'site_name': 'Website',
-					"uid": urlsafe_base64_encode(force_bytes(user.pk)),
-					"user": user,
-					'token': default_token_generator.make_token(user),
-					'protocol': 'http',
-					}
-					email = render_to_string(email_template_name, c)
-					try:
-						send_mail(subject, email, 'admin@example.com' , [user.email], fail_silently=False)
-					except BadHeaderError:
-						return HttpResponse('Invalid header found.')
-					return redirect ("/password_reset/done/")
-	password_reset_form = PasswordResetForm()
-	return render(request, "blog/password_reset.html", context={"password_reset_form":password_reset_form})
+        return render(request, 'blog/search.html', {'post': post})
