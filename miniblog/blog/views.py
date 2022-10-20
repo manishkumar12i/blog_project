@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from blog.forms import SignUpForm, LoginForm, PostForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from blog.models import Post, AboutUs
+from blog.models import Post, AboutUs, Footer
 from django.core.paginator import Paginator
 from django.contrib.auth.models import Group
 
@@ -151,3 +151,21 @@ def search(request):
         search = request.GET.get('search')
         post = Post.objects.all().filter(title__contains=search)
         return render(request, 'blog/search.html', {'post': post})
+
+# for footer 
+def footer(request):
+    if request.method == "GET":
+        footer = Footer.objects.filter().first()
+        footer_address = footer.address
+        footer_contact = footer.contact
+        footer_fb = footer.facebook_link
+        footer_ins = footer.instagram_link
+        footer_twi = footer.twitter_link
+        context = {
+            'footer_address':footer_address,
+            'footer_contact':footer_contact,
+            'footer_fb':footer_fb,
+            'footer_ins':footer_ins,
+            'footer_twi':footer_twi,
+        }
+        return render(request,'blog/footer.html',context)

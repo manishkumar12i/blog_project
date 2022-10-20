@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    "phonenumber_field",
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,7 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'kumarmanishkumar12@gmail.com'
 EMAIL_HOST_PASSWORD = 'ekzhzstumjzlropt'
+
+# phone number region 
+PHONENUMBER_DEFAULT_REGION = "IN"
+PHONENUMBER_DB_FORMAT = 'NATIONAL'

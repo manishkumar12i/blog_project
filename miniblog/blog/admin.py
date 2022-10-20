@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Post,AboutUs
+from blog.models import Post,AboutUs,Footer
 
 @admin.register(Post)
 class PostModelAdmin(admin.ModelAdmin):
@@ -12,3 +12,8 @@ class AboutUsModelAdmin(admin.ModelAdmin):
     list_display = ['id','title','description']
     list_filter = ['title']
     
+
+@admin.register(Footer)
+class FooterModelAdmin(admin.ModelAdmin):
+    list_display = ['id','address','contact','facebook_link','instagram_link','twitter_link']
+    list_filter = ['address']
