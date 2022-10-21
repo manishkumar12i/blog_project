@@ -149,7 +149,11 @@ def terms(request):
 def search(request):
     if request.method == "GET":
         search = request.GET.get('search')
-        post = Post.objects.all().filter(title__contains=search)
+        if search == "":
+            return HttpResponseRedirect('/')
+        else:
+            search = request.GET.get('search')
+            post = Post.objects.all().filter(title__contains=search)
         return render(request, 'blog/search.html', {'post': post})
 
 # for footer 
