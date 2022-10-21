@@ -7,14 +7,22 @@
   {% if post %}
   {% for i in post %}
   <center>
+  <div class="jumbotron">
     <h2>
         <a href="/{{i.slug}}">{{i.id}} {{i.title}}</a>
     </h2>
+    </div>
   </center>
   {% endfor %}
+  <a href="/" class="btn btn-secondary">Back</a><br></br>
   {% else %}
   <center>
+  <div class="jumbotron">
     <h1>No result found </h1>
+</div>
   </center>
+<div style="width:200px; height:300px;">
+  <a href="/" class="btn btn-secondary">Back</a>
+</div>
   {% endif %}
 {% endblock content%}
