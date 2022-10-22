@@ -38,3 +38,14 @@ class Footer(models.Model):
         verbose_name_plural = 'Footer'
     def __str__(self):
         return self.address
+
+
+class Email(models.Model):
+    email = models.EmailField(blank=True,null=True)
+
+    class Meta:
+        verbose_name = 'Email'
+        verbose_name_plural = 'Email'
+
+    def __str__(self):
+        return self.email

@@ -41,5 +41,5 @@ urlpatterns = [
         template_name="blog/password_reset_confirm.html"), name="password_reset_confirm"),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(
         template_name="blog/password_reset_complete.html"), name="password_reset_complete"),
-
+    path('email_suscribe',views.email_subscribe,name="email_subscribe"),
 ]

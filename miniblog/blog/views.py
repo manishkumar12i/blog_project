@@ -173,3 +173,9 @@ def footer(request):
             'footer_twi':footer_twi,
         }
         return render(request,'blog/footer.html',context)
+
+
+# for email subscribe
+def email_subscribe(request):
+    if request.method == "POST":
+        pass
