@@ -40,12 +40,13 @@ class Footer(models.Model):
         return self.address
 
 
-class Email(models.Model):
-    email = models.EmailField(blank=True,null=True)
+class SubscribedUsers(models.Model):
+    email = models.EmailField(unique=True,max_length=100)
+    name = models.CharField(max_length=50)
 
     class Meta:
-        verbose_name = 'Email'
-        verbose_name_plural = 'Email'
+        verbose_name = 'SubscribedUsers'
+        verbose_name_plural = 'SubscribedUsers'
 
     def __str__(self):
         return self.email
