@@ -177,19 +177,6 @@ def footer(request):
         return render(request,'blog/footer.html',context)
 
 
-# for email subscribe
-def validate_email(request):
-    email = request.POST.get("email", None)   
-    if email is None:
-        res = JsonResponse({'msg': 'Email is required.'})
-    elif SubscribedUsers.objects.get(email = email):
-        res = JsonResponse({'msg': 'Email Address already exists'})
-    elif not re.match(r"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", email):
-        res = JsonResponse({'msg': 'Invalid Email Address'})
-    else:
-        res = JsonResponse({'msg': ''})
-    return res
-
 
 # for email subscription + email send 
 
@@ -211,4 +198,18 @@ def index(request):
         res = JsonResponse({'msg': 'Subscribed Successfully!'})
         print('RES:::>>>>>',res)
         return res
-    return render(request, 'index.html')
+    return render(request, 'blog/footer.html')
+
+
+# for email subscribe
+def validate_email(request):
+    email = request.POST.get("email", None)   
+    if email is None:
+        res = JsonResponse({'msg': 'Email is required.'})
+    elif SubscribedUsers.objects.get(email = email):
+        res = JsonResponse({'msg': 'Email Address already exists'})
+    elif not re.match(r"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", email):
+        res = JsonResponse({'msg': 'Invalid Email Address'})
+    else:
+        res = JsonResponse({'msg': ''})
+    return res
