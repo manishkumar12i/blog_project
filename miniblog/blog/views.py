@@ -191,18 +191,14 @@ def index(request):
         subscribedUsers.save()
         # send a confirmation mail
         subject = 'NewsLetter Subscription'
-        message = 'Hello ' + name + ', Thanks for subscribing us. You will get notification of latest articles posted on our website. Please do not reply on this email.'
+        message = 'Hello ' + str(name) + ', Thanks for subscribing us. You will get notification for posts. Please do not reply on this email.'
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [email, ]
-        send_mail(email_from,recipient_list, subject, message,)
-        res = JsonResponse({'msg': 'Subscribed Successfully!'})
-        print('RES:::>>>>>',res)
+        send_mail(subject, message, email_from, recipient_list)
+        res = JsonResponse({'msg': 'You successfully subscribed our newsletter'})
         return res
-    return render(request, 'blog/footer.html')
 
-
-# for email subscribe
-def validate_email(request):
+def validate_email(request): 
     email = request.POST.get("email", None)   
     if email is None:
         res = JsonResponse({'msg': 'Email is required.'})
