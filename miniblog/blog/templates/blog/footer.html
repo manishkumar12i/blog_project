@@ -1,4 +1,12 @@
 {% load static %}
+<style>
+.btn {
+    padding: 7px 21px;
+    background-color: rgb(255, 0, 0);
+    color: white;
+    font-size: 16px;
+}
+</style>
 <footer>
 <div class="container">
     <footer class="py-5">
@@ -36,7 +44,7 @@
         </div>  
         
         <div class="col-lg-6 col-md-6" style="display: block;">
-        <form enctype="multipart/form-data" method="POST" action="" style="text-align: center;">
+        <form enctype="multipart/form-data" method="POST" style="text-align: center;">
             {% csrf_token %}
             <div class="form-group">
                 <h5><svg id="i-mail" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -47,7 +55,7 @@
                 <input type="text" class="form-control mt-2" id="userName" placeholder="Enter name" required>
                 <small style="font-weight: 600;color: green;" class="success"></small>
             </div>
-            <button type="submit"  id="submit" class="btn btn-success">Subscribe</button>     
+             <button type="submit" id="submit" class="btn">Subscribe</button>    
         </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
