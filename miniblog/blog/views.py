@@ -35,6 +35,7 @@ def contact(request):
         contactUs.email = email
         contactUs.message = message
         contactUs.save()
+        messages.success(request, 'Thanks for sharing problem')
     return render(request, 'blog/contact.html')
 
 
