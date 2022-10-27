@@ -202,7 +202,7 @@ def validate_email(request):
     email = request.POST.get("email")   
     if SubscribedUsers.objects.filter(email = email):
         res = JsonResponse({'msg': 'Email Address already exists'})
-    elif email is None:
+    elif email == "":
         res = JsonResponse({'msg': 'Email is required.'})
     elif not re.match(r"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", email):
         res = JsonResponse({'msg': 'Invalid Email Address'})
