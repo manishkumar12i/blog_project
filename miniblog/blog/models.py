@@ -50,3 +50,15 @@ class SubscribedUsers(models.Model):
 
     def __str__(self):
         return str(self.email)
+
+
+class ContactUs(models.Model):
+    email = models.EmailField(unique=True,max_length=100,null=True,blank=True)
+    message = models.TextField(blank=True,null=True,max_length=500)
+
+    class Meta:
+        verbose_name = 'ContactUs'
+        verbose_name_plural = 'ContactUs'
+
+    def __str__(self):
+        return str(self.email)

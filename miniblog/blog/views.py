@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect,JsonResponse
 from blog.forms import SignUpForm, LoginForm, PostForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from blog.models import Post, AboutUs, Footer,SubscribedUsers
+from blog.models import Post, AboutUs, Footer,SubscribedUsers,ContactUs
 from django.core.paginator import Paginator
 from django.contrib.auth.models import Group
 import re
@@ -27,6 +27,14 @@ def about(request):
 
 
 def contact(request):
+    if request.method == "POST":
+        post_data = request.POST.copy()
+        email = post_data.get("email")
+        message = post_data.get("message")
+        contactUs = ContactUs()
+        contactUs.email = email
+        contactUs.message = message
+        contactUs.save()
     return render(request, 'blog/contact.html')
 
 
