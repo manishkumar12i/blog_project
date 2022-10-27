@@ -65,5 +65,6 @@ const subscribeUser = function(email, name) {
         event.preventDefault();
         const email = event.target.value;
         validateEmail(email);
+        console.log(event)
     });
 })(jQuery);
