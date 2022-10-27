@@ -49,4 +49,4 @@ class SubscribedUsers(models.Model):
         verbose_name_plural = 'SubscribedUsers'
 
     def __str__(self):
-        return str(self.id)
+        return str(self.email)
