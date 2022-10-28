@@ -53,6 +53,7 @@
   <br></br>
     <h4 class="text-center alert alert-primary my-5">Show Post Information</h4>
     {% if posts %}
+    <div style="overflow-x:auto;">
     <table class="table table-hover ">
       <thead>
         <tr class="text-center">
@@ -97,7 +98,7 @@
         {% endif %}
       </tbody>
     </table>
-   
+   </div>
 <div class="pagination">
   <span class="step-links">
       {% if page_obj.has_previous %}
