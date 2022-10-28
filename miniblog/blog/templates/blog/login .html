@@ -1,6 +1,24 @@
 {% extends 'blog/base.html' %} {% load static %} {% block content%}
 
 <style>
+.button{
+  position:relative;
+  padding:8px 16px;
+  background:skyblue;
+  border:none;
+  border-radius:2px;
+  cursor:pointer;
+  
+}
+.button:active{
+  background:  #007a63;
+}
+.button__text{
+  font: bold 20px 'Quicksand',san-serif;
+  color:#ffffff;
+  align:center;
+  transition:all 2s;
+}
 .center {
   display: block;
   margin-left: auto;
@@ -34,7 +52,9 @@
       <strong class="text-danger">{{fm.errors|striptags}}</strong>
     </div>
     {% endfor %}
-    <button class="btn btn-primary btn-block">Login</button><br />
+    <button type ="button "class="button btn-block">
+    <span class="button__text">Login</span>
+    </button><br />
     {% if form.non_field_errors %} {% for error in form.non_field_errors %}
     <p class="alert alert-danger my-3">{{error}}</p>
     {% endfor%} {% endif %}
