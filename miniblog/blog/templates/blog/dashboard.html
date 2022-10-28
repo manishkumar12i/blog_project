@@ -1,6 +1,18 @@
 {% extends 'blog/base.html' %}
 {% load  static %}
 {% block side %}
+
+<style>
+
+.animate{
+  height: 32px;
+  width: 32px;
+  transition: width 2s;
+}
+.animate:hover{
+   width: 300px;
+}
+</style>
 <div class="col-sm-10">
   <div align="center">
     <a href="{% url 'logout'%}"><svg id="i-signout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -33,9 +45,12 @@
       </div>
     {% endfor %}
     {% endif %}
+    <div class="animate">
     <a href="{% url 'add_post'%}" class="btn btn-primary"><svg id="i-compose" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
       <path d="M27 15 L27 30 2 30 2 5 17 5 M30 6 L26 2 9 19 7 25 13 23 Z M22 6 L26 10 Z M9 19 L13 23 Z" />
   </svg> Add Post</a>
+  </div>
+  <br></br>
     <h4 class="text-center alert alert-primary my-5">Show Post Information</h4>
     {% if posts %}
     <table class="table table-hover ">
