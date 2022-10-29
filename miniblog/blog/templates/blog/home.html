@@ -1,31 +1,62 @@
-{% extends 'blog/base.html' %}
-{% load  static %}
-{% block content%}
+{% extends 'blog/base.html' %} {% load static %} {% block content%}
 
 <style>
-.responsive {
-  width: 100%;
-  height: auto;
-  border-radius: 15px 50px;
-}
+  .no-display {
+    display: none;
+  }
+  .responsive {
+    width: 100%;
+    height: auto;
+    border-radius: 15px 50px;
+  }
 </style>
 <div class="col-sm-10">
-    <h3>
-      <svg id="i-home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-        <path d="M12 20 L12 30 4 30 4 12 16 2 28 12 28 30 20 30 20 20 Z" />
+  <h3>
+    <svg
+      id="i-home"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 32 32"
+      width="32"
+      height="32"
+      fill="none"
+      stroke="currentcolor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+    >
+      <path d="M12 20 L12 30 4 30 4 12 16 2 28 12 28 30 20 30 20 20 Z" />
     </svg>
     Home Page
-    </h3><br>
-    {% if messages %}
-    {% for message in messages%}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>{{message}}</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    {% endfor %}
-    {% endif %}
+  </h3>
+  <br />
+  <div id="spinner1">
+  <div class="text-center">
+  <div class="spinner-border" role="status">
+  </div>
+</div>
+  </div>
+
+  {% if messages %} {% for message in messages%}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %} {% endif %}
+  <div id="post"></div>
+  <script>
+    const spinner = document.getElementById("spinner1");
+    const post = document.getElementById("post");
+    $.ajax({
+      type: "GET",
+      url: "/",
+      success: function (res) {
+        setTimeout(() => {
+          spinner.classList.add("no-display");
+          console.log("success");
+          console.log("{{posts}}");
+          post.innerHTML += `
     <form class="d-flex" role="search"  action="{% url 'search'%}">
       {% csrf_token %}
         <input class="form-control me-2" type="search" placeholder="search any post" name="search">
@@ -49,6 +80,16 @@
         </div> 
         </div>
     </div>
-    {% endfor %}
+        {% endfor %}
 </div>
-{% endblock content%}
+    `;
+        }, 3000);
+      },
+      error: function (er) {
+        console.log("error found..");
+      },
+    });
+  </script>
+
+  {% endblock content%}
+</div>
