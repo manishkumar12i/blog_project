@@ -52,9 +52,38 @@
       <strong class="text-danger">{{fm.errors|striptags}}</strong>
     </div>
     {% endfor %}
-    <button type ="button "class="button btn-block">
+    <button type ="button "class="button btn-block" id="login" onclick="spinnerFunction()">
     <span class="button__text">Login</span>
     </button><br />
+    <div id="spinner1">
+    <div class="text-center">
+    <div class="spinner-border" role="status">
+  </div>
+</div>
+  </div>
+  <div id="loading1"></div>
+  
+  <script>
+    const spinner = document.getElementById("spinner1");
+    const post = document.getElementById("loading1");
+    function spinnerFunction(){
+      url: "{% url 'dashboard'%}",
+      document.getElementById("login").innerHTML = "loading"
+    }
+    $.ajax({
+      type: "GET",
+      url: "{% url 'dashboard'%}",
+      success: function (res) {
+        setTimeout(() => {
+          spinner.classList.add("no-display");
+          console.log("success");
+        }, 500);
+      },
+      error: function (er) {
+        console.log("error found..");
+      },
+    });
+  </script>
     {% if form.non_field_errors %} {% for error in form.non_field_errors %}
     <p class="alert alert-danger my-3">{{error}}</p>
     {% endfor%} {% endif %}
