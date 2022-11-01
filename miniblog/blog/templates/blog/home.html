@@ -7,7 +7,7 @@
     display: none;
   }
   .responsive {
-    width: 100%;
+    max-width: 100%;
     height: auto;
     border-radius: 15px 50px;
   }
@@ -68,7 +68,7 @@
       </form>
       <br>
     {%for post in posts%}   
-    <div class="jumbotron jumbotron-fluid" style="border-radius: 15px 50px;">
+    <div class="jumbotron jumbotron" style="border-radius: 15px 50px;"> 
         <div class="container text-center">
             <h1 class="display-4 font-weight-bold">{{post.title}}</h1>
             <p class="lead">{{post.description}}</p>
