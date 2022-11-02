@@ -43,4 +43,5 @@ urlpatterns = [
         template_name="blog/password_reset_complete.html"), name="password_reset_complete"),
      path('validate', views.validate_email, name='validate_email'),
     path('newsletter', views.index, name='newsletter'),
+    path('send_otp',views.otp_mail,name="send_otp"),
 ]

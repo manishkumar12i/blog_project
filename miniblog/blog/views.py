@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect,JsonResponse
+from django.http import HttpResponseRedirect,JsonResponse,HttpResponse
 from blog.forms import SignUpForm, LoginForm, PostForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -9,11 +9,23 @@ from django.contrib.auth.models import Group
 import re
 from django.conf import settings
 from django.core.mail import send_mail
+import random 
+import math 
 
+# generate otp for email 
+def generate_otp():
+    numbers = "0123456789"
+    OTP = ""
+    for i in range(6):
+        OTP+=numbers[math.floor(random.random()*10)]
+    return OTP
+
+# for home page
 def home(request):
     posts = Post.objects.all().order_by('id')
     return render(request, 'blog/home.html', {'posts': posts},)
 
+#for about page
 
 def about(request):
     about_obj = AboutUs.objects.filter().first()
@@ -25,7 +37,7 @@ def about(request):
     }
     return render(request, 'blog/about.html', context)
 
-
+# for contact page
 def contact(request):
     if request.method == "POST":
         post_data = request.POST.copy()
@@ -38,7 +50,7 @@ def contact(request):
         messages.success(request, 'Thanks for sharing problem')
     return render(request, 'blog/contact.html')
 
-
+# for login page
 def user_login(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
@@ -58,12 +70,14 @@ def user_login(request):
         return HttpResponseRedirect('/dashboard/')
 
 
+# for logout page
 def user_logout(request):
     logout(request)
     messages.success(request, 'Logout Successfully:(')
     return HttpResponseRedirect('/')
 
 
+# for sign up page
 def user_signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
@@ -72,7 +86,7 @@ def user_signup(request):
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
-            messages.success(request, 'Registered Successfully:)')
+            messages.success(request, f'Registered Successfully:)')
             user = form.save()
             group = Group.objects.get(name="Author")
             user.groups.add(group)
@@ -82,6 +96,7 @@ def user_signup(request):
     return render(request, 'blog/signup.html', {'form': form})
 
 
+# for dashboard page
 def dashboard(request):
     if request.user.is_authenticated:
         posts = Post.objects.all()
@@ -218,3 +233,14 @@ def validate_email(request):
     else:
         res = JsonResponse({'msg': ''})
     return res
+
+
+# otp used in email function
+def otp_mail(request):
+    email = request.GET.get("email") 
+    otp = generate_otp()
+    htmltext = '<p>Your OTP is <strong>'+ otp+ '</strong></p>'
+    email_from = settings.EMAIL_HOST_USER
+    send_mail('OTP request',otp,email_from,[email],fail_silently=False, html_message=htmltext)
+    return HttpResponse(f'OTP is : {otp}')
+
