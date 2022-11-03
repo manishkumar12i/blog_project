@@ -1,31 +1,36 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect,JsonResponse,HttpResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from blog.forms import SignUpForm, LoginForm, PostForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from blog.models import Post, AboutUs, Footer,SubscribedUsers,ContactUs
+from blog.models import Post, AboutUs, Footer, SubscribedUsers, ContactUs
 from django.core.paginator import Paginator
 from django.contrib.auth.models import Group
 import re
 from django.conf import settings
 from django.core.mail import send_mail
-import random 
-import math 
+import random
+import math
 
-# generate otp for email 
+# generate otp for email
+
+
 def generate_otp():
     numbers = "0123456789"
     OTP = ""
     for i in range(6):
-        OTP+=numbers[math.floor(random.random()*10)]
+        OTP += numbers[math.floor(random.random()*10)]
     return OTP
 
 # for home page
+
+
 def home(request):
     posts = Post.objects.all().order_by('id')
     return render(request, 'blog/home.html', {'posts': posts},)
 
-#for about page
+# for about page
+
 
 def about(request):
     about_obj = AboutUs.objects.filter().first()
@@ -38,6 +43,8 @@ def about(request):
     return render(request, 'blog/about.html', context)
 
 # for contact page
+
+
 def contact(request):
     if request.method == "POST":
         post_data = request.POST.copy()
@@ -51,6 +58,8 @@ def contact(request):
     return render(request, 'blog/contact.html')
 
 # for login page
+
+
 def user_login(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
@@ -182,7 +191,9 @@ def search(request):
             post = Post.objects.all().filter(title__contains=search)
         return render(request, 'blog/search.html', {'post': post})
 
-# for footer 
+# for footer
+
+
 def footer(request):
     if request.method == "GET":
         footer = Footer.objects.filter().first()
@@ -192,17 +203,16 @@ def footer(request):
         footer_ins = footer.instagram_link
         footer_twi = footer.twitter_link
         context = {
-            'footer_address':footer_address,
-            'footer_contact':footer_contact,
-            'footer_fb':footer_fb,
-            'footer_ins':footer_ins,
-            'footer_twi':footer_twi,
+            'footer_address': footer_address,
+            'footer_contact': footer_contact,
+            'footer_fb': footer_fb,
+            'footer_ins': footer_ins,
+            'footer_twi': footer_twi,
         }
-        return render(request,'blog/footer.html',context)
+        return render(request, 'blog/footer.html', context)
 
 
-
-# for email subscription + email send 
+# for email subscription + email send
 
 def index(request):
     if request.method == 'POST':
@@ -215,16 +225,19 @@ def index(request):
         subscribedUsers.save()
         # send a confirmation mail
         subject = 'NewsLetter Subscription'
-        message = 'Hello ' + str(name) + ', Thanks for subscribing us. You will get notification for posts. Please do not reply on this email.'
+        message = 'Hello ' + \
+            str(name) + ', Thanks for subscribing us. You will get notification for posts. Please do not reply on this email.'
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [email, ]
         send_mail(subject, message, email_from, recipient_list)
-        res = JsonResponse({'msg': 'You successfully subscribed our newsletter'})
+        res = JsonResponse(
+            {'msg': 'You successfully subscribed our newsletter'})
         return res
 
-def validate_email(request): 
-    email = request.POST.get("email")   
-    if SubscribedUsers.objects.filter(email = email):
+
+def validate_email(request):
+    email = request.POST.get("email")
+    if SubscribedUsers.objects.filter(email=email):
         res = JsonResponse({'msg': 'Email Address already exists'})
     elif email == "":
         res = JsonResponse({'msg': 'Email is required.'})
@@ -237,10 +250,10 @@ def validate_email(request):
 
 # otp used in email function
 def otp_mail(request):
-    email = request.GET.get("email") 
+    email = request.GET.get("email")
     otp = generate_otp()
-    htmltext = '<p>Your OTP is <strong>'+ otp+ '</strong></p>'
+    htmltext = '<p>Your OTP is <strong>' + otp + '</strong></p>'
     email_from = settings.EMAIL_HOST_USER
-    send_mail('OTP request',otp,email_from,[email],fail_silently=False, html_message=htmltext)
+    send_mail('OTP request', otp, email_from, [
+              email], fail_silently=False, html_message=htmltext)
     return HttpResponse(f'OTP is : {otp}')
-
