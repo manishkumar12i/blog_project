@@ -250,7 +250,7 @@ def validate_email(request):
 
 # otp used in email function
 def otp_mail(request):
-    email = request.GET.get("email")
+    email = request.POST.get("email")
     otp = generate_otp()
     htmltext = '<p>Your OTP is <strong>' + otp + '</strong></p>'
     email_from = settings.EMAIL_HOST_USER
