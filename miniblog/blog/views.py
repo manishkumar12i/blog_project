@@ -105,6 +105,8 @@ def user_signup(request):
     return render(request, 'blog/signup.html', {'form': form})
 
 
+# hash generator function that prints hash with last name
+
 # for dashboard page
 def dashboard(request):
     if request.user.is_authenticated:
@@ -117,7 +119,9 @@ def dashboard(request):
         email = user.email
         gps = user.groups.all()
         short_name = user.last_name 
-        return render(request, 'blog/dashboard.html', {'posts': page_obj, 'full_name': full_name, 'groups': gps, 'email': email, 'page_obj': page_obj,'last_name':short_name})
+        def fun(short_name):
+            return('#'+short_name)
+        return render(request, 'blog/dashboard.html', {'posts': page_obj, 'full_name': full_name, 'groups': gps, 'email': email, 'page_obj': page_obj,'last_name':fun(short_name)})
     else:
         return HttpResponseRedirect('/login/')
 
