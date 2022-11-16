@@ -33,5 +33,5 @@ class ContactUsModelAdmin(admin.ModelAdmin):
 
 @admin.register(Idcreator)
 class IdCreatorModelAdmin(admin.ModelAdmin):
-    list_display = ['user_id']
+    list_display = ['user_id','user_active']
     list_filter = ['user_id']

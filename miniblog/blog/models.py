@@ -67,6 +67,7 @@ class ContactUs(models.Model):
 
 class Idcreator(models.Model):
     user_id = models.UUIDField(primary_key=True,unique=True,default=uuid.uuid4,max_length=10)
+    user_active = models.BooleanField(default=False)
     
     class Meta:
         verbose_name = 'Idcreator'
