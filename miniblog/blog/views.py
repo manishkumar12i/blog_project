@@ -56,7 +56,7 @@ def contact(request):
             contactUs.email = email
             contactUs.message = message
             contactUs.save()
-            messages.success(request, 'Thanks for contact us.')
+            messages.success(request, 'Thanks for contact us:)')
         except IntegrityError:
             return HttpResponse('Email already used for contact us,Please Use Other Email.')
     return render(request, 'blog/contact.html')
@@ -103,7 +103,7 @@ def user_signup(request):
             user = form.save()
             group = Group.objects.get(name="Author")
             user.groups.add(group)
-
+            form = SignUpForm()
     else:
         form = SignUpForm()
     return render(request, 'blog/signup.html', {'form': form})
