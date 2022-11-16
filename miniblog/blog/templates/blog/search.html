@@ -4,10 +4,10 @@
 <h1><mark>Search Result Found </mark></h1>
   <center><br><br></br></br>
   {% if post %}
-  {% for i in post %}
+  {% for posts in post %}
   <div class="jumbotron">
     <h2>
-        <a href="/{{i.slug}}">{{i.id}} {{i.title}}</a>
+      ({{posts.id}}) {{posts.title}}
     </h2>
     </div>
   {% endfor %}
