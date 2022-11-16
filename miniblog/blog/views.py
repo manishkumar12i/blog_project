@@ -242,6 +242,7 @@ def index(request):
         res = JsonResponse(
             {'msg': 'You successfully subscribed our newsletter'})
         return res
+    return HttpResponseRedirect('/')
 
 
 def validate_email(request):
