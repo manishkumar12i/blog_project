@@ -11,6 +11,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 import random
 import math
+from django.db import IntegrityError
 
 # generate otp for email
 
@@ -46,15 +47,18 @@ def about(request):
 
 
 def contact(request):
-    if request.method == "POST":
+    if request.method == "POST" or None:
         post_data = request.POST.copy()
         email = post_data.get("email")
         message = post_data.get("message")
         contactUs = ContactUs()
-        contactUs.email = email
-        contactUs.message = message
-        contactUs.save()
-        messages.success(request, 'Thanks for sharing problem')
+        try:
+            contactUs.email = email
+            contactUs.message = message
+            contactUs.save()
+            messages.success(request, 'Thanks for contact us.')
+        except IntegrityError:
+            return HttpResponse('Email already used for contact us,Please Use Other Email.')
     return render(request, 'blog/contact.html')
 
 # for login page
