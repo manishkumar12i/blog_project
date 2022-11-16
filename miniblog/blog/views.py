@@ -252,8 +252,8 @@ def validate_email(request):
 def otp_mail(request):
     email = request.POST.get("email")
     otp = generate_otp()
-    htmltext = '<p>Your OTP is <strong>' + otp + '</strong></p>'
+    htmltext = '<p>Your OTP is <strong>' + otp + '</strong>Use this otp in user registration.</p>'
     email_from = settings.EMAIL_HOST_USER
-    send_mail('OTP request', otp, email_from, [
+    send_mail('OTP request for registered mail id :', otp, email_from, [
               email], fail_silently=False, html_message=htmltext)
     return HttpResponse(f'OTP is : {otp}')
