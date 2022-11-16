@@ -7,7 +7,7 @@ const validateEmail = function(email) {
         }
     });
     $.ajax({
-        url: '/validate/',
+        url: 'validate/',
         type: 'POST',
         dataType: 'json',
         cache: false,
@@ -33,7 +33,7 @@ const subscribeUser = function(email, name) {
         }
     });
     $.ajax({
-        url: '/newsletter/',
+        url: 'newsletter/',
         type: 'POST',
         dataType: 'json',
         cache: false,
