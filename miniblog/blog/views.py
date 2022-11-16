@@ -116,7 +116,8 @@ def dashboard(request):
         full_name = user.get_full_name()
         email = user.email
         gps = user.groups.all()
-        return render(request, 'blog/dashboard.html', {'posts': page_obj, 'full_name': full_name, 'groups': gps, 'email': email, 'page_obj': page_obj})
+        short_name = user.last_name 
+        return render(request, 'blog/dashboard.html', {'posts': page_obj, 'full_name': full_name, 'groups': gps, 'email': email, 'page_obj': page_obj,'last_name':short_name})
     else:
         return HttpResponseRedirect('/login/')
 
