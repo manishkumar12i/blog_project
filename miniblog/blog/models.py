@@ -1,5 +1,6 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+import uuid
 class Post(models.Model):
     title = models.CharField(max_length=500)
     description = models.TextField(max_length=500)
@@ -62,3 +63,14 @@ class ContactUs(models.Model):
 
     def __str__(self):
         return str(self.email)
+
+
+class Idcreator(models.Model):
+    user_id = models.UUIDField(primary_key=True,unique=True,default=uuid.uuid4,max_length=10)
+    
+    class Meta:
+        verbose_name = 'Idcreator'
+        verbose_name_plural = 'Idcreator'
+
+    def __str__(self):
+        return str(self.user_id)
