@@ -39,10 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    # 'django.contrib.sites',
     "phonenumber_field",
 ]
-# SITE_ID = 0
 
 
 MIDDLEWARE = [
