@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from blog import views
 from django.contrib.auth import views as auth_views
 
@@ -44,4 +44,8 @@ urlpatterns = [
      path('validate/', views.validate_email, name='validate_email'),
     path('newsletter/', views.index, name='newsletter'),
     path('send_otp',views.otp_mail,name="send_otp"),
+]
+
+urlpatterns += [
+    path('captcha/', include('captcha.urls')),
 ]
