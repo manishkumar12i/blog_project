@@ -218,7 +218,7 @@ def footer(request):
             'footer_ins': footer_ins,
             'footer_twi': footer_twi,
         }
-        return render(request, 'blog/footer.html', context)
+        return render(request, 'blog/base.html', context)
 
 
 # for email subscription + email send
