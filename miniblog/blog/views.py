@@ -58,7 +58,7 @@ def contact(request):
             contactUs.save()
             messages.success(request, 'Thanks for contact us:)')
         except IntegrityError:
-            return HttpResponse('Email already used for contact us,Please Use Other Email.')
+            return HttpResponse('Email already used.Please Go back to previous page.')
     return render(request, 'blog/contact.html')
 
 # for login page
