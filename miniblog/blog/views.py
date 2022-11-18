@@ -28,7 +28,8 @@ def generate_otp():
 
 def home(request):
     posts = Post.objects.all().order_by('id')
-    return render(request, 'blog/home.html', {'posts': posts},)
+    footer = Footer.objects.filter().first()
+    return render(request, 'blog/home.html', {'posts': posts , 'footer':footer},)
 
 # for about page
 
@@ -37,9 +38,11 @@ def about(request):
     about_obj = AboutUs.objects.filter().first()
     title = about_obj.title
     desc = about_obj.description
+    footer = Footer.objects.filter().first()
     context = {
         'title': title,
-        'desc': desc
+        'desc': desc,
+        'footer':footer,
     }
     return render(request, 'blog/about.html', context)
 
@@ -47,6 +50,7 @@ def about(request):
 
 
 def contact(request):
+    footer = Footer.objects.filter().first()
     if request.method == "POST" or None:
         post_data = request.POST.copy()
         email = post_data.get("email")
@@ -59,12 +63,13 @@ def contact(request):
             messages.success(request, 'Thanks for contact us:)')
         except IntegrityError:
             return HttpResponse('Email already used.Please Go back to previous page.')
-    return render(request, 'blog/contact.html')
+    return render(request, 'blog/contact.html',{'footer':footer})
 
 # for login page
 
 
 def user_login(request):
+    footer = Footer.objects.filter().first()
     if not request.user.is_authenticated:
         if request.method == "POST":
             form = LoginForm(request=request, data=request.POST)
@@ -78,7 +83,7 @@ def user_login(request):
                     return HttpResponseRedirect('/dashboard/')
         else:
             form = LoginForm()
-        return render(request, 'blog/login .html', {'form': form})
+        return render(request, 'blog/login .html', {'form': form, 'footer':footer})
     else:
         return HttpResponseRedirect('/dashboard/')
 
@@ -92,6 +97,7 @@ def user_logout(request):
 
 # for sign up page
 def user_signup(request):
+    footer = Footer.objects.filter().first()
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -106,13 +112,14 @@ def user_signup(request):
             form = SignUpForm()
     else:
         form = SignUpForm()
-    return render(request, 'blog/signup.html', {'form': form})
+    return render(request, 'blog/signup.html', {'form': form, 'footer':footer})
 
 
 # hash generator function that prints hash with last name
 
 # for dashboard page
 def dashboard(request):
+    footer = Footer.objects.filter().first()
     if request.user.is_authenticated:
         posts = Post.objects.all()
         paginator = Paginator(posts, 5)
@@ -125,7 +132,7 @@ def dashboard(request):
         short_name = user.last_name 
         def fun(short_name):
             return('#'+short_name)
-        return render(request, 'blog/dashboard.html', {'posts': page_obj, 'full_name': full_name, 'groups': gps, 'email': email, 'page_obj': page_obj,'last_name':fun(short_name)})
+        return render(request, 'blog/dashboard.html', {'posts': page_obj, 'full_name': full_name, 'groups': gps, 'email': email, 'page_obj': page_obj,'last_name':fun(short_name),'footer':footer})
     else:
         return HttpResponseRedirect('/login/')
 
@@ -133,6 +140,7 @@ def dashboard(request):
 
 
 def add_post(request):
+    footer = Footer.objects.filter().first()
     if request.user.is_authenticated:
         if request.method == "POST":
             form = PostForm(request.POST, request.FILES)
@@ -144,10 +152,10 @@ def add_post(request):
                 pst.save()
                 messages.success(request, 'Post Added Successfully:)')
                 form = PostForm()
-                return HttpResponseRedirect('/dashboard/', {'form': form})
+                return HttpResponseRedirect('/dashboard/', {'form': form ,'footer':footer})
         else:
             form = PostForm()
-        return render(request, 'blog/addpost.html', {'form': form})
+        return render(request, 'blog/addpost.html', {'form': form, 'footer':footer})
 
     else:
         return HttpResponseRedirect('/login/')
@@ -156,6 +164,7 @@ def add_post(request):
 
 
 def update_post(request, id):
+    footer = Footer.objects.filter().first()
     if request.user.is_authenticated:
         if request.method == "POST":
             pi = Post.objects.get(pk=id)
@@ -167,7 +176,7 @@ def update_post(request, id):
         else:
             pi = Post.objects.get(pk=id)
             form = PostForm(instance=pi)
-        return render(request, 'blog/updatepost.html', {'form': form})
+        return render(request, 'blog/updatepost.html', {'form': form,'footer':footer})
     else:
         return HttpResponseRedirect('/login/')
 
@@ -200,25 +209,6 @@ def search(request):
             post = Post.objects.all().filter(title__contains=search)
         return render(request, 'blog/search.html', {'post': post})
 
-# for footer
-
-
-def footer(request):
-    if request.method == "GET":
-        footer = Footer.objects.filter().first()
-        footer_address = footer.address
-        footer_contact = footer.contact
-        footer_fb = footer.facebook_link
-        footer_ins = footer.instagram_link
-        footer_twi = footer.twitter_link
-        context = {
-            'footer_address': footer_address,
-            'footer_contact': footer_contact,
-            'footer_fb': footer_fb,
-            'footer_ins': footer_ins,
-            'footer_twi': footer_twi,
-        }
-        return render(request, 'blog/base.html', context)
 
 
 # for email subscription + email send
