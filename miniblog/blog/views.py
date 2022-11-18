@@ -86,7 +86,7 @@ def user_login(request):
 # for logout page
 def user_logout(request):
     logout(request)
-    messages.success(request, 'Logout Successfully:(')
+    messages.success(request, 'Logout Successfully:)')
     return HttpResponseRedirect('/')
 
 
