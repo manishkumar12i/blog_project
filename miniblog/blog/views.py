@@ -195,11 +195,13 @@ def delete_post(request, id):
 
 # for terms page
 def terms(request):
-    return render(request, 'blog/terms.html')
+    footer = Footer.objects.filter().first()
+    return render(request, 'blog/terms.html',{'footer':footer})
 
 
 # for search in home
 def search(request):
+    footer = Footer.objects.filter().first()
     if request.method == "GET":
         search = request.GET.get('search')
         if search == "":
@@ -207,7 +209,7 @@ def search(request):
         else:
             search = request.GET.get('search')
             post = Post.objects.all().filter(title__contains=search)
-        return render(request, 'blog/search.html', {'post': post})
+        return render(request, 'blog/search.html', {'post': post,'footer':footer})
 
 
 
