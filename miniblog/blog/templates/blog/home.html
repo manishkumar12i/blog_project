@@ -49,6 +49,17 @@
   </div>
   {% endfor %} {% endif %}
   <div id="post"></div>
+  <style>
+  .transition{
+    height:40px;
+    width:80px;
+    transition:2s
+    background:grey
+  }
+  .transition:hover{
+    width:160px;
+  }
+  </style>
   <script>
     const spinner = document.getElementById("spinner1");
     const post = document.getElementById("post");
@@ -63,8 +74,9 @@
           post.innerHTML += `
     <form class="d-flex" role="search"  action="{% url 'search'%}">
       {% csrf_token %}
-        <input class="form-control me-2" type="search" placeholder="search any post" name="search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input class="form-control me-2" type="search" placeholder="search any post" name="search" style="font-family: system-ui">
+        &nbsp;
+        <button class="transition" type="submit">Search</button>
       </form>
       <br>
     {%for post in posts%}   
