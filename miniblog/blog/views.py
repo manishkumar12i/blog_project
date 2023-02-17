@@ -220,15 +220,13 @@ def index(request):
     if request.method == 'POST':
         post_data = request.POST.copy()
         email = post_data.get("email", None)
-        name = post_data.get("name", None)
         subscribedUsers = SubscribedUsers()
         subscribedUsers.email = email
-        subscribedUsers.name = name
         subscribedUsers.save()
         # send a confirmation mail
         subject = 'NewsLetter Subscription'
         message = 'Hello ' + \
-            str(name) + ', Thanks for subscribing us. You will get notification for posts. Please do not reply on this email.'
+        ', Thanks for subscribing us. You will get notification for posts. Please do not reply on this email.'
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [email, ]
         send_mail(subject, message, email_from, recipient_list)
