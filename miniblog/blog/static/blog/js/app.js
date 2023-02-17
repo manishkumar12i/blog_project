@@ -54,9 +54,8 @@ const subscribeUser = function(email, name) {
     $('#submit').on('click', () => {
         event.preventDefault();
         const userEmail = $('#userEmail').val();
-        const userName = $('#userName').val();
-        if (userEmail && userName) {
-            subscribeUser(userEmail, userName);
+        if (userEmail) {
+            subscribeUser(userEmail);
         }
     });
 
