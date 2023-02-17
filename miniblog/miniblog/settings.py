@@ -138,7 +138,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'kumarmanishkumar12@gmail.com'
-EMAIL_HOST_PASSWORD = 'kzdlelhombqfgwzb'
+EMAIL_HOST_PASSWORD = 'pbkobsvcxftvengz'
 
 # phone number region 
 PHONENUMBER_DEFAULT_REGION = "IN"
