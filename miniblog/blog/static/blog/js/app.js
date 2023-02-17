@@ -26,7 +26,6 @@ const validateEmail = function(email) {
 const subscribeUser = function(email, name) {
     var formData = new FormData();
     formData.append('email', email);
-    formData.append('name', name);
     $.ajaxSetup({
         headers: {
             "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
