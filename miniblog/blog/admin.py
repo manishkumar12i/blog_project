@@ -21,7 +21,7 @@ class FooterModelAdmin(admin.ModelAdmin):
 
 @admin.register(SubscribedUsers)
 class SubscribedUsersModelAdmin(admin.ModelAdmin):
-    list_display = ['id','email','name']
+    list_display = ['id','email']
     list_filter = ['email']
 
 
