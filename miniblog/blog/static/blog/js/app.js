@@ -23,7 +23,7 @@ const validateEmail = function(email) {
     });
 };
 
-const subscribeUser = function(email, name) {
+const subscribeUser = function(email,) {
     var formData = new FormData();
     formData.append('email', email);
     $.ajaxSetup({
@@ -45,7 +45,6 @@ const subscribeUser = function(email, name) {
         success: function (res) {
             $('.success').text(res.msg);
             $('#userEmail').val(' ');
-            $('#userName').val(' ');
         }
     });
 };
