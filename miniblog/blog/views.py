@@ -12,6 +12,7 @@ from django.core.mail import send_mail
 import random
 import math
 from django.db import IntegrityError
+from django.views.decorators.csrf import csrf_exempt
 
 # generate otp for email
 
@@ -48,7 +49,7 @@ def about(request):
 
 # for contact page
 
-
+@csrf_exempt
 def contact(request):
     footer = Footer.objects.filter().first()
     if request.method == "POST" or None:
@@ -67,7 +68,7 @@ def contact(request):
 
 # for login page
 
-
+@csrf_exempt
 def user_login(request):
     footer = Footer.objects.filter().first()
     if not request.user.is_authenticated:
@@ -140,6 +141,7 @@ def dashboard(request):
 # for add posts
 
 
+@csrf_exempt
 def add_post(request):
     footer = Footer.objects.filter().first()
     if request.user.is_authenticated:
@@ -163,7 +165,7 @@ def add_post(request):
 
 # for update posts
 
-
+@csrf_exempt
 def update_post(request, id):
     footer = Footer.objects.filter().first()
     if request.user.is_authenticated:
@@ -183,7 +185,7 @@ def update_post(request, id):
 
 # for delete post
 
-
+@csrf_exempt
 def delete_post(request, id):
     if request.user.is_authenticated:
         if request.method == "POST":
@@ -201,6 +203,7 @@ def terms(request):
 
 
 # for search in home
+
 def search(request):
     footer = Footer.objects.filter().first()
     if request.method == "GET":
@@ -215,7 +218,7 @@ def search(request):
 
 
 # for email subscription + email send
-
+@csrf_exempt
 def index(request):
     if request.method == 'POST':
         post_data = request.POST.copy()
@@ -235,7 +238,7 @@ def index(request):
         return res
     return HttpResponseRedirect('/')
 
-
+@csrf_exempt
 def validate_email(request):
     email = request.POST.get("email")
     if SubscribedUsers.objects.filter(email=email):
