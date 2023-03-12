@@ -13,7 +13,8 @@ import random
 import math
 from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.forms import PasswordResetForm,SetPasswordForm
+from django.contrib.auth.forms import PasswordResetForm
+
 
 # generate otp for email
 
