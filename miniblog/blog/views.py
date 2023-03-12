@@ -13,6 +13,7 @@ import random
 import math
 from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.forms import PasswordResetForm,SetPasswordForm
 
 # generate otp for email
 
@@ -261,3 +262,16 @@ def otp_mail(request):
     send_mail('OTP request for registered mail id :', otp, email_from, [
               email], fail_silently=False, html_message=htmltext)
     return HttpResponse(f'OTP is : {otp}')
+
+
+# password reset 
+def password_reset(request):
+    footer = Footer.objects.filter().first()
+    email = request.POST.get("email")
+    form_class = PasswordResetForm()
+    subject='Password Reset Form'
+    message = 'Your Password Reset Form is here'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [email, ]
+    send_mail(subject,message,email_from,recipient_list)
+    return render(request,'blog/password_reset.html',{'form':form_class,'footer':footer})
