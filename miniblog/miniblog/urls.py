@@ -33,15 +33,8 @@ urlpatterns = [
     path('search/', views.search, name="search"),
     path('update_post/<int:id>/', views.update_post, name="update_post"),
     path('delete/<int:id>/', views.delete_post, name="delete"),
-    path('reset_password/', auth_views.PasswordResetView.as_view(
-        template_name="blog/password_reset.html"), name="reset_password"),
-    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(
-        template_name="blog/password_reset_done.html"), name="password_reset_done"),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
-        template_name="blog/password_reset_confirm.html"), name="password_reset_confirm"),
-    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(
-        template_name="blog/password_reset_complete.html"), name="password_reset_complete"),
-     path('validate/', views.validate_email, name='validate_email'),
+    path('reset_password/', views.password_reset, name="reset_password"),
+    path('validate/', views.validate_email, name='validate_email'),
     path('newsletter/', views.index, name='newsletter'),
     path('send_otp',views.otp_mail,name="send_otp"),
 ]
