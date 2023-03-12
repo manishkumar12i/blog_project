@@ -3,7 +3,8 @@
 {% block content%}
 
 <div class="col-sm-10">
-    <h3 class="my-5">Registration Page</h3>
+    <marquee direction="right">
+    <h3 class="my-5">Registration Page</h3> </marquee>
     {% if messages %}
     {% for message in messages%}
     <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5"{% endif %}>{{message}}</p>
