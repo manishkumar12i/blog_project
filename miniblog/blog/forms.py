@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from blog .models import Post
 from django.utils.translation import gettext,gettext_lazy as _
 from captcha.fields import CaptchaField
-from django.contrib.auth.password_validation import validate_password
 
 
 class SignUpForm(UserCreationForm):
@@ -32,21 +31,3 @@ class PostForm(forms.ModelForm):
         fields = ['title','description','photo']
         labels = {'title':'Title','description':'Description','photo':'Upload Image'}
         widgets = {'title':forms.TextInput(attrs={'class':'form-control'}),'description':forms.Textarea(attrs={'class':'form-control'})}
-
-
-# set password form 
-class SetPasswordForm(forms.Form):
-
-    New_Password = forms.CharField(widget=forms.PasswordInput, validators=[validate_password])
-    Confirm_password = forms.CharField(widget=forms.PasswordInput, validators=[validate_password])
-
-    error_messages = {
-       'password_mismatch': ("The two password fields didn't match."),
-       }
-
-    class Meta:
-        model = User
-        fields = ('password',)
-
-    def __init__(self,*args, **kwargs):
-       super(SetPasswordForm, self).__init__(*args, **kwargs)
