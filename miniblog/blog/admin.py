@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Post,AboutUs,Footer,SubscribedUsers,ContactUs
+from blog.models import Post,AboutUs,Footer,SubscribedUsers,ContactUs,Set_Password
 
 @admin.register(Post)
 class PostModelAdmin(admin.ModelAdmin):
@@ -29,3 +29,10 @@ class SubscribedUsersModelAdmin(admin.ModelAdmin):
 class ContactUsModelAdmin(admin.ModelAdmin):
     list_display = ['id','email','message']
     list_filter = ['email']
+
+
+
+@admin.register(Set_Password)
+class ContactUsModelAdmin(admin.ModelAdmin):
+    list_display = ['id','new_password_1']
+    list_filter = ['new_password_1']
