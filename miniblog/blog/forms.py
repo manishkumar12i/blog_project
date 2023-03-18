@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UsernameField,SetPasswordForm
 from django.contrib.auth.models import User
-from blog .models import Post,Set_Password_Form
+from blog .models import Post,Set_Password
 from django.utils.translation import gettext,gettext_lazy as _
 from captcha.fields import CaptchaField
 
@@ -36,5 +36,5 @@ class PostForm(forms.ModelForm):
 # set passwod form
 class SetPasswordForm(SetPasswordForm):
     class Meta:
-        model = Set_Password_Form()
+        model = Set_Password()
         fields = ['new_password1', 'new_password2']
