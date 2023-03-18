@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from blog import views
-from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -37,10 +36,9 @@ urlpatterns = [
     path('validate/', views.validate_email, name='validate_email'),
     path('newsletter/', views.index, name='newsletter'),
     path('send_otp', views.otp_mail, name="send_otp"),
-    path("reset_password/", views.password_reset_request, name="reset_password"),
-    path('reset/<uidb64>/<token>/',views.set_password_confirm_request, name='password_reset_confirm'),
-    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='blog/password_reset_done.html'), name='password_reset_done'),
-    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='blog/password_reset_complete.html'), name='password_reset_complete'),
+    path("password_change", views.password_change, name="password_reset"),
+    path("password_reset", views.password_reset_request, name="password_change"),
+    path('reset/<uidb64>/<token>', views.passwordResetConfirm, name='password_reset_confirm'),
 ]
 
 
