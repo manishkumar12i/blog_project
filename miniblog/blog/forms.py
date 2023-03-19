@@ -1,10 +1,9 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UsernameField
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UsernameField,PasswordResetForm
 from django.contrib.auth.models import User
 from blog .models import Post
 from django.utils.translation import gettext,gettext_lazy as _
 from captcha.fields import CaptchaField
-
 
 class SignUpForm(UserCreationForm):
     password1 = forms.CharField(label='Password',widget=forms.PasswordInput(attrs={'class':'form-control'}))
@@ -31,3 +30,10 @@ class PostForm(forms.ModelForm):
         fields = ['title','description','photo']
         labels = {'title':'Title','description':'Description','photo':'Upload Image'}
         widgets = {'title':forms.TextInput(attrs={'class':'form-control'}),'description':forms.Textarea(attrs={'class':'form-control'})}
+
+
+class Pswrd_ResetForm(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super(PasswordResetForm, self).__init__(*args, **kwargs)
+
+    captcha = CaptchaField()
