@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UsernameField,SetPasswordForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UsernameField
 from django.contrib.auth.models import User
 from blog .models import Post,Set_Password
 from django.utils.translation import gettext,gettext_lazy as _
@@ -31,10 +31,3 @@ class PostForm(forms.ModelForm):
         fields = ['title','description','photo']
         labels = {'title':'Title','description':'Description','photo':'Upload Image'}
         widgets = {'title':forms.TextInput(attrs={'class':'form-control'}),'description':forms.Textarea(attrs={'class':'form-control'})}
-
-
-# set passwod form
-class SetPassForm(SetPasswordForm):
-    class Meta:
-        model = Set_Password()
-        fields = ['new_password1', 'new_password2']
