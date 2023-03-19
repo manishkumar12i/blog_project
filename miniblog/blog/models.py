@@ -64,14 +64,3 @@ class ContactUs(models.Model):
         return str(self.email)
     
 
-
-class Set_Password(models.Model):
-    new_password_1 = models.TextField(blank=True,null=True,max_length=500)    
-    new_password_2 = models.TextField(blank=True,null=True,max_length=500)    
-
-    class Meta:
-        verbose_name = "SetPassword"
-        verbose_name_plural = "SetPassword"
-    
-    def __str__(self):
-        return str(self.new_password_1)
