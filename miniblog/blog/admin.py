@@ -29,10 +29,3 @@ class SubscribedUsersModelAdmin(admin.ModelAdmin):
 class ContactUsModelAdmin(admin.ModelAdmin):
     list_display = ['id','email','message']
     list_filter = ['email']
-
-
-
-@admin.register(Set_Password)
-class ContactUsModelAdmin(admin.ModelAdmin):
-    list_display = ['id','new_password_1']
-    list_filter = ['new_password_1']
