@@ -36,7 +36,6 @@ urlpatterns = [
     path('validate/', views.validate_email, name='validate_email'),
     path('newsletter/', views.index, name='newsletter'),
     path('send_otp', views.otp_mail, name="send_otp"),
-    path("password_change", views.password_change, name="password_reset"),
     path("password_reset", views.password_reset_request, name="password_change"),
     path('reset/<uidb64>/<token>', views.passwordResetConfirm, name='password_reset_confirm'),
 ]
