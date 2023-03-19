@@ -34,7 +34,7 @@ class PostForm(forms.ModelForm):
 
 
 # set passwod form
-class SetPasswordForm(SetPasswordForm):
+class SetPassForm(SetPasswordForm):
     class Meta:
         model = Set_Password()
         fields = ['new_password1', 'new_password2']

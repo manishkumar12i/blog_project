@@ -73,5 +73,5 @@ class Set_Password(models.Model):
         verbose_name = "SetPassword"
         verbose_name_plural = "SetPassword"
     
-    def __str__(self) -> str:
-        return super().__str__(self.new_password_1)
+    def __str__(self):
+        return str(self.new_password_1)
