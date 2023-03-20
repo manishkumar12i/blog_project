@@ -329,7 +329,7 @@ def passwordResetConfirm(request, uidb64 , token):
             confirm_new_password = request.POST.get("new_password2")
             if form.is_valid():
                 form.save()
-                return render(request,'blog/password_reset_complete.html')
+                return render(request,'blog/password_reset_complete.html',{'footer':footer})
             else:
                 for error in list(form.errors.values()):
                     messages.error(request, error)
