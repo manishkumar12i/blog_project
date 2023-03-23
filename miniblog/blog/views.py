@@ -335,7 +335,7 @@ def passwordResetConfirm(request, uidb64 , token):
                     messages.error(request, error)
             if new_password != confirm_new_password:
                 data = [{
-                    "message":"Please use same password as above."
+                    "message":"Password Fields not matches."
                 }]
                 return JsonResponse(data,safe=False)
                 
