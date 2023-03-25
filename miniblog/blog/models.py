@@ -63,4 +63,12 @@ class ContactUs(models.Model):
     def __str__(self):
         return str(self.email)
     
+class Profile(models.Model):
+    image = models.ImageField(upload_to='profile')
 
+    class Meta:
+        verbose_name = "Profile"
+        verbose_name_plural = "Profile"
+    
+    def __str__(self):
+        return self.image
